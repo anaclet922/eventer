@@ -1,9 +1,5 @@
-
-
-
-
 getFormatedDate = (timestamp) => {
-    let date = timestamp;
+    let date = new Date(timestamp);
     const day = date.getDate();
     const month = date.getMonth() + 1; // Months are zero-indexed in JavaScript
     const year = date.getFullYear();
