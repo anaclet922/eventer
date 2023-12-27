@@ -1,0 +1,38 @@
+<section class="footer-section pt-5">
+    <footer>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12 text-center text-muted" style="font-size: 13px;">
+
+                    <%- locals.configs['footer_copyright_text'] %>
+
+                </div>
+            </div>
+
+        </div>
+    </footer>
+</section>
+
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/intlTelInput.min.js"></script>
+<script>
+    const input = document.querySelector("#phone");
+    window.intlTelInput(input, {
+        utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js",
+    });
+</script>
+<style>
+    .iti {
+        width: 100%;
+    } 
+   
+</style>
+
+
+</body>
+
+</html>

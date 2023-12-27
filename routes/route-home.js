@@ -30,11 +30,35 @@ routerHome.post('/post-new-booking', async(req, res) => {
     let names = req.body.names;
     let email = req.body.email;
     let phone = req.body.phone;
+    let country = req.body.country;
     let hotel = req.body.hotel;
     let checkin = req.body.checkin;
     let checkout = req.body.checkout;
 
-    const [i] = await (await conn).query("INSERT INTO 'tbl_hotels'('name', 'address', 'listing') VALUES (?,)");
+    const [i] = await (await conn).query("INSERT INTO tbl_bookings (names, email, phone, country, hotel_id, checkin, checkout) VALUES (?,?,?,?,?,?,?)", [names, email, phone, country, hotel, checkin, checkout]);
+
+    res.redirect('/en/booking-done');
+
+});
+
+
+routerHome.get('/booking-done', async(req, res) => {
+
+    res.render('success-booking');
+
+});
+
+
+routerHome.get('/about-event', async (req, res) => {
+
+    res.render('about-event');
+
+});
+
+
+routerHome.get('/contact', async (req, res) => {
+
+    res.render('contact');
 
 });
 

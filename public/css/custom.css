@@ -18,3 +18,11 @@ body, *{
 .register-section{
     margin-top: -200px;
 }
+
+.success-section{
+    margin-top: -140px;
+}
+.author {
+    font-size: 0.8em;
+    margin-top: 5px;
+}

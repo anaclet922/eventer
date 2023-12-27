@@ -45,6 +45,14 @@ app.use(async function (req, res, next) {
 const homeRouter = require('./routes/route-home');
 app.use('/en', homeRouter);
 
+const authRouter = require('./routes/route-auth');
+app.use('/auth', authRouter);
+
+
+const adminRouter = require('./routes/route-admin');
+app.use('/adimini', adminRouter);
+
+
 
 app.get('/', (req, res) =>{
         res.redirect('/en');
