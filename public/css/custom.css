@@ -1,28 +1,35 @@
   @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Lexend+Deca:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-body, *{
-    font-family: Lexend Deca;
-}
-.hero{
-    background-image: url('../images/bg-home.png');
-    height: 50vh;
-    width: 100%;
-    background-repeat: repeat;
-    background-size: cover;
-}
+  body,
+  * {
+      font-family: Lexend Deca;
+  }
 
-#main-navbarNav .navbar-nav .nav-item .nav-link{
+  .hero {
+      background-image: url('../images/bg-home.png');
+      height: 50vh;
+      width: 100%;
+      background-repeat: repeat;
+      background-size: cover;
+  }
+
+  /* #main-navbarNav .navbar-nav .nav-item .nav-link{
     color: #fff;
-}
+} */
 
-.register-section{
-    margin-top: -200px;
-}
+  .register-section {
+      margin-top: -200px;
+  }
 
-.success-section{
-    margin-top: -140px;
-}
-.author {
-    font-size: 0.8em;
-    margin-top: 5px;
-}
+  .success-section {
+      margin-top: -140px;
+  }
+
+  .author {
+      font-size: 0.8em;
+      margin-top: 5px;
+  }
+
+  .navbar-light .navbar-nav .nav-link {
+      color: rgb(0 0 0);
+  }

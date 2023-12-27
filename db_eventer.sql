@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 27, 2023 at 05:08 AM
+-- Generation Time: Dec 27, 2023 at 04:01 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 7.4.27
 
@@ -47,7 +47,7 @@ CREATE TABLE `tbl_bookings` (
 --
 
 INSERT INTO `tbl_bookings` (`id`, `names`, `email`, `phone`, `country`, `hotel_id`, `checkin`, `checkout`, `booked`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'John Doe', 'johndoe2@gmail.com', '784354460', 'Anguilla', 1, '2023-12-20 08:15:00', '2023-12-27 08:15:00', 'YES', '2023-12-20 06:16:36', '2023-12-20 06:16:36', NULL);
+(2, 'Ahishakiye Anacley', 'a.anaclet920@gmail.com', '+250784354460', 'Rwanda', 1, '2023-12-21 11:09:00', '2023-12-23 11:09:00', 'YES', '2023-12-27 09:09:36', '2023-12-27 09:09:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -62,6 +62,13 @@ CREATE TABLE `tbl_categories` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbl_categories`
+--
+
+INSERT INTO `tbl_categories` (`id`, `category`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(3, 'Globus member', '2023-12-27 10:08:48', '2023-12-27 11:01:41', NULL);
 
 -- --------------------------------------------------------
 
@@ -84,8 +91,28 @@ CREATE TABLE `tbl_configs` (
 INSERT INTO `tbl_configs` (`id`, `config_key`, `value`, `created_at`, `updated_at`) VALUES
 (1, 'event_time', '10:30', '2023-12-19 08:04:34', '2023-12-19 08:05:05'),
 (2, 'event_date', '2023-12-25', '2023-12-19 08:04:34', '2023-12-19 08:04:34'),
-(3, 'footer_copyright_text', ' <p>&copy; 2023 RADIANT Insurance Company ltd. All Rights Reserved.<br/><span class=\"crafted-by\">Crafted by: A. Anaclet</span></p>\n      ', '2023-12-19 08:04:34', '2023-12-27 04:02:49'),
-(4, 'system_name', 'Lorem', '2023-12-19 08:04:34', '2023-12-19 09:20:09');
+(3, 'footer_copyright_text', ' <p>&copy; <script>document.write(new Date().getFullYear())</script> RADIANT Insurance Company ltd. All Rights Reserved.<br/><span class=\"crafted-by\">Crafted by: A. Anaclet</span></p>\n      ', '2023-12-19 08:04:34', '2023-12-27 07:52:59'),
+(4, 'system_name', 'RADIANT - Events', '2023-12-19 08:04:34', '2023-12-27 06:05:16'),
+(5, 'contact_phone', '+(250) 784 354 460', '2023-12-19 08:04:34', '2023-12-27 06:05:16'),
+(6, 'contact_email', 'aahishakiye@radiantyacu.rw', '2023-12-19 08:04:34', '2023-12-27 06:05:16'),
+(7, 'contact_location', 'Kn 2 AV CHIC Building', '2023-12-19 08:04:34', '2023-12-27 06:05:16');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_guests`
+--
+
+CREATE TABLE `tbl_guests` (
+  `id` int(11) NOT NULL,
+  `names` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -157,6 +184,12 @@ ALTER TABLE `tbl_configs`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_guests`
+--
+ALTER TABLE `tbl_guests`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_hotels`
 --
 ALTER TABLE `tbl_hotels`
@@ -176,19 +209,25 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_bookings`
 --
 ALTER TABLE `tbl_bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tbl_categories`
 --
 ALTER TABLE `tbl_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_configs`
 --
 ALTER TABLE `tbl_configs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `tbl_guests`
+--
+ALTER TABLE `tbl_guests`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_hotels`

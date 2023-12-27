@@ -28,16 +28,42 @@
                                 <table id="example" class="table table-striped" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>=#</th>
+                                            <th>#</th>
                                             <th>Names</th>
                                             <th>Email</th>
                                             <th>Phone</th>
                                             <th>Country</th>
                                             <th>Hotel</th>
+                                            <th>Dates</th>
                                         </tr>
                                     </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Names</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Country</th>
+                                            <th>Hotel</th>
+                                            <th>Dates</th>
+                                        </tr>
+                                    </tfoot>
                                     <tbody>
                                       
+
+
+                                        <% bookings.forEach((booking, index)=> { %>
+                                            <tr>
+                                                <td><%= index + 1 %></td>
+                                                <td><%= booking.names %></td>
+                                                <td><%= booking.email %></td>
+                                                <td><%= booking.phone %></td>
+                                                <td><%= booking.country %></td>
+                                                <td><%= booking.name %></td>
+                                                <td><%= locals.getFormatedDate(booking.checkin) + ' to ' + locals.getFormatedDate(booking.checkout) %></td>
+                                            </tr>
+                                            <% }); %>
+
                                         
                                     </tfoot>
                                 </table>
