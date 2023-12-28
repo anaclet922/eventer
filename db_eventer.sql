@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 27, 2023 at 04:01 PM
--- Server version: 10.4.22-MariaDB
--- PHP Version: 7.4.27
+-- Host: localhost
+-- Generation Time: Dec 28, 2023 at 05:43 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -40,7 +40,7 @@ CREATE TABLE `tbl_bookings` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_bookings`
@@ -61,14 +61,15 @@ CREATE TABLE `tbl_categories` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_categories`
 --
 
 INSERT INTO `tbl_categories` (`id`, `category`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(3, 'Globus member', '2023-12-27 10:08:48', '2023-12-27 11:01:41', NULL);
+(3, 'Globus member', '2023-12-27 10:08:48', '2023-12-27 11:01:41', NULL),
+(5, 'RADIANT Employees', '2023-12-28 04:06:42', '2023-12-28 04:06:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -82,7 +83,7 @@ CREATE TABLE `tbl_configs` (
   `value` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_configs`
@@ -108,11 +109,43 @@ CREATE TABLE `tbl_guests` (
   `names` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `phone` varchar(50) NOT NULL,
-  `country` varchar(255) NOT NULL,
+  `country` varchar(255) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_guests`
+--
+
+INSERT INTO `tbl_guests` (`id`, `names`, `email`, `phone`, `country`, `category_id`, `created_at`, `updated_at`) VALUES
+(63, 'John Doe', 'doe@john.com', '250784354462', 'Rwanda', 3, '2023-12-28 03:37:42', '2023-12-28 03:37:42'),
+(64, 'John Doe', 'doe1@john.com', '250784354463', 'Rwanda', 3, '2023-12-28 03:37:42', '2023-12-28 03:37:42'),
+(65, 'John Doe', 'doe2@john.com', '250784354464', 'Rwanda', 3, '2023-12-28 03:37:42', '2023-12-28 03:37:42'),
+(66, 'John Doe', 'doe5@john.com', '250784354465', 'Rwanda', 3, '2023-12-28 03:37:42', '2023-12-28 03:37:42'),
+(67, 'John Doe', 'doe6@john.com', '250784354466', 'Rwanda', 3, '2023-12-28 03:37:42', '2023-12-28 03:37:42'),
+(68, 'John Doe', 'doe9@john.com', '250784354467', 'Rwanda', 3, '2023-12-28 03:37:42', '2023-12-28 03:37:42'),
+(69, 'John Doe', 'doe8@john.com', '250784354468', 'Rwanda', 3, '2023-12-28 03:37:42', '2023-12-28 03:37:42'),
+(70, 'John Doe', 'doe@john.com', '250784354469', 'Rwanda', 3, '2023-12-28 03:37:42', '2023-12-28 03:37:42'),
+(71, 'John Doe', 'doe@john.com2', '25078435447', 'Rwanda', 5, '2023-12-28 04:13:41', '2023-12-28 04:13:41'),
+(72, 'John Doe', '[object Object]', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13'),
+(73, 'John Doe', 'doe@john.com3', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13'),
+(74, 'John Doe', 'doe@john.com4', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13'),
+(75, 'John Doe', 'doe@john.com5', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13'),
+(76, 'John Doe', 'doe@john.com6', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13'),
+(77, 'John Doe', 'doe@john.com7', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13'),
+(78, 'John Doe', 'doe@john.com8', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13'),
+(79, 'John Doe', 'doe@john.com9', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13'),
+(80, 'John Doe', 'doe@john.com10', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13'),
+(81, 'John Doe', 'doe@john.com11', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13'),
+(82, 'John Doe', 'doe@john.com12', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13'),
+(83, 'John Doe', 'doe@john.com13', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13'),
+(84, 'John Doe', 'doe@john.com14', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13'),
+(85, 'John Doe', 'doe@john.com15', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13'),
+(86, 'John Doe', 'doe@john.com16', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13'),
+(87, 'John Doe', 'doe@john.com17', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13'),
+(88, 'John Doe', 'doe@john.com18', '250784354463', 'Rwanda', 5, '2023-12-28 04:16:13', '2023-12-28 04:16:13');
 
 -- --------------------------------------------------------
 
@@ -127,7 +160,7 @@ CREATE TABLE `tbl_hotels` (
   `listing` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_hotels`
@@ -152,7 +185,7 @@ CREATE TABLE `tbl_users` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_users`
@@ -215,7 +248,7 @@ ALTER TABLE `tbl_bookings`
 -- AUTO_INCREMENT for table `tbl_categories`
 --
 ALTER TABLE `tbl_categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `tbl_configs`
@@ -227,7 +260,7 @@ ALTER TABLE `tbl_configs`
 -- AUTO_INCREMENT for table `tbl_guests`
 --
 ALTER TABLE `tbl_guests`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `tbl_hotels`
