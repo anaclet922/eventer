@@ -6,7 +6,7 @@
                 <div class="col-lg-12 text-center text-muted">
 
                     <%- locals.configs['footer_copyright_text'] %>
-                    
+
                 </div>
             </div>
 
@@ -15,6 +15,12 @@
 </section>
 
 
+
+<div class="loading style-2">
+    <div class="loading-wheel">
+        <img src="/images/loading_circle.gif" style="width: 70px;" />
+    </div>
+</div>
 
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.css">
@@ -29,23 +35,48 @@
     .iti {
         width: 100%;
     }
+    .loading {
+        display: none;
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, .5);
+        z-index: 2000;
+    }
 
-  
+    .loading-wheel {
+        width: 20px;
+        height: 20px;
+        margin-top: -40px;
+        margin-left: -40px;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        border-width: 30px;
+        border-radius: 50%;
+        -webkit-animation: spin 1s linear infinite;
+    }
 </style>
 
 <script>
 
-    $(document).ready(function(){
+    $(document).ready(function () {
 
-        <% if(message.error){ %>
+        <% if (message.error) { %>
             showToastSuccessOrErrorJS('error', '<%= message.error %>')
-        <% } %>
+            <% } %>
 
-        <% if(message.success){ %>
+        <% if (message.success) { %>
             showToastSuccessOrErrorJS('success', '<%= message.success %>')
-        <% } %>
+            <% } %>
     });
-  
+
     function showToastSuccessOrErrorJS(icon, message) {
         const Toast = Swal.mixin({
             toast: true,

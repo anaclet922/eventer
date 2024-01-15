@@ -41,11 +41,14 @@ routerAdmin.get('/home', (req, res) => {
 routerAdmin.get('/bookings', async (req, res) => {
 
     const [bookings] = await (await conn).query("SELECT tbl_bookings.id AS booking_id, tbl_bookings.*, tbl_hotels.*  FROM tbl_bookings LEFT JOIN tbl_hotels ON tbl_hotels.id = tbl_bookings.hotel_id ORDER BY booking_id DESC");
+    
+    const [categories] = await (await conn).query("SELECT *  FROM tbl_categories ORDER BY category DESC");
 
     let page_data = {
         title: "Bookings",
         currrentPath: "bookings",
-        bookings: bookings
+        bookings: bookings,
+        categories: categories
     };
 
     res.render('admin/bookings', page_data);
@@ -298,5 +301,21 @@ routerAdmin.get('/guests-tables', async (req, res) => {
 
 });
 
+
+
+routerAdmin.post('/post-mark-booked', async (req, res) => {
+
+    const receivedData = req.body.values;
+
+    // Loop through the values
+    for (const i of receivedData) {
+        const [u] = await (await conn).query("UPDATE tbl_bookings SET booked = 'YES' WHERE id = ?", [i]);
+
+        // const [i] = await (await conn).query("SELECT * FROM tbl_bookings WHERE id = ?", [i]);
+
+    }
+
+    res.status(200).json({status: 'success'});
+});
 
 module.exports = routerAdmin

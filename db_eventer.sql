@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Dec 28, 2023 at 05:43 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 7.4.33
+-- Host: 127.0.0.1
+-- Generation Time: Jan 15, 2024 at 02:27 PM
+-- Server version: 10.4.22-MariaDB
+-- PHP Version: 7.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -36,18 +36,21 @@ CREATE TABLE `tbl_bookings` (
   `hotel_id` int(11) NOT NULL,
   `checkin` datetime NOT NULL,
   `checkout` datetime NOT NULL,
-  `booked` enum('YES','NO') NOT NULL,
+  `booked` enum('YES','NO') NOT NULL DEFAULT 'NO',
+  `guest_approved` enum('YES','NO') NOT NULL DEFAULT 'NO',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_bookings`
 --
 
-INSERT INTO `tbl_bookings` (`id`, `names`, `email`, `phone`, `country`, `hotel_id`, `checkin`, `checkout`, `booked`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(2, 'Ahishakiye Anacley', 'a.anaclet920@gmail.com', '+250784354460', 'Rwanda', 1, '2023-12-21 11:09:00', '2023-12-23 11:09:00', 'YES', '2023-12-27 09:09:36', '2023-12-27 09:09:36', NULL);
+INSERT INTO `tbl_bookings` (`id`, `names`, `email`, `phone`, `country`, `hotel_id`, `checkin`, `checkout`, `booked`, `guest_approved`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(2, 'Ahishakiye Anacley', 'a.anaclet920@gmail.com', '+250784354460', 'Rwanda', 1, '2023-12-21 11:09:00', '2023-12-23 11:09:00', 'YES', 'NO', '2023-12-27 09:09:36', '2023-12-28 08:39:42', NULL),
+(3, 'John Doe', 'a.anaclet921@gmail.com', '+250784354461', 'Rwanda', 1, '2023-12-21 11:09:00', '2023-12-23 11:09:00', 'YES', 'NO', '2023-12-27 09:09:36', '2023-12-28 08:39:42', NULL),
+(4, 'Ahishakiye Anaclet', 'a.anaclet920@gmail.com', '+250 784 354 4460', 'Rwanda', 1, '2023-12-29 09:03:00', '2023-12-23 09:03:00', 'YES', 'NO', '2023-12-29 07:04:06', '2023-12-29 07:04:38', NULL);
 
 -- --------------------------------------------------------
 
@@ -61,7 +64,7 @@ CREATE TABLE `tbl_categories` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_categories`
@@ -83,7 +86,7 @@ CREATE TABLE `tbl_configs` (
   `value` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_configs`
@@ -113,7 +116,7 @@ CREATE TABLE `tbl_guests` (
   `category_id` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_guests`
@@ -160,7 +163,7 @@ CREATE TABLE `tbl_hotels` (
   `listing` tinyint(1) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_hotels`
@@ -169,6 +172,22 @@ CREATE TABLE `tbl_hotels` (
 INSERT INTO `tbl_hotels` (`id`, `name`, `address`, `listing`, `created_at`, `updated_at`) VALUES
 (1, 'Marriott Hotel', 'KN 3 Ave, Kigali', 1, '2023-12-19 09:30:07', '2023-12-19 09:30:07'),
 (2, 'Kigali Serena Hotel', 'KN 3 Ave, Kigali', 1, '2023-12-19 09:30:07', '2023-12-19 09:30:07');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_smses`
+--
+
+CREATE TABLE `tbl_smses` (
+  `id` int(11) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `sms` varchar(512) NOT NULL,
+  `status` varchar(128) NOT NULL,
+  `guest_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -185,7 +204,7 @@ CREATE TABLE `tbl_users` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `tbl_users`
@@ -229,6 +248,12 @@ ALTER TABLE `tbl_hotels`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `tbl_smses`
+--
+ALTER TABLE `tbl_smses`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `tbl_users`
 --
 ALTER TABLE `tbl_users`
@@ -242,7 +267,7 @@ ALTER TABLE `tbl_users`
 -- AUTO_INCREMENT for table `tbl_bookings`
 --
 ALTER TABLE `tbl_bookings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `tbl_categories`
@@ -267,6 +292,12 @@ ALTER TABLE `tbl_guests`
 --
 ALTER TABLE `tbl_hotels`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tbl_smses`
+--
+ALTER TABLE `tbl_smses`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbl_users`

@@ -16,13 +16,19 @@
                             <%= locals.title %>
                         </h2>
 
-                        <div class="justify-content-between">
-                            <a href="/adimini/invite" class="btn btn-primary">Back to List</a>
-                            <a href="javascript:void(0)" class="btn btn-secondary" onclick="printDiv('printable-area')">Print</a>
+                        <div class="d-flex justify-content-end">
+                            <a href="/adimini/invite" class="btn btn-primary"><i class="fa-solid fa-arrow-left"></i>
+                                Back to List</a>
+                            &nbsp;&nbsp;
+                            <a href="javascript:void(0)" class="btn btn-secondary"
+                                onclick="printDiv('printable-area')"><i class="fa-solid fa-print"></i> Print</a>
+                            &nbsp;&nbsp;
+                            <a href="javascript:void(0)" class="btn btn-info"
+                                onclick="printDiv('printable-area')"><i class="fa-solid fa-comment"></i> Print</a>
                         </div>
 
 
-
+                        <br>
 
 
 
@@ -34,7 +40,8 @@
 
                                 <div class="col-md-3">
 
-                                    <div class="card shadow-lg p-4">
+                                    <div
+                                        class="card shadow-lg p-2 text-white bg-<%= ['success', 'info', 'warning', 'danger', 'secondary '][Math.floor(Math.random() * ['success', 'info', 'warning', 'danger', 'secondary '].length)] %>">
                                         <div class="card-header">
                                             <h4>Table #<%= index + 1 %>
                                             </h4>
@@ -43,11 +50,13 @@
 
                                             <% guest_group.forEach((guest_g, index)=> { %>
                                                 <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <%= guest_g.names %>
+                                                    <div class="col-sm-7">
+                                                        <%= index + 1 %>. <%= guest_g.names %>
                                                     </div>
-                                                    <div class="col-sm-6">
-                                                        <%= guest_g.phone %>
+                                                    <div class="col-sm-5">
+                                                        <span class="badge bg-<%= ['success', 'info', 'warning', 'danger', 'secondary '][Math.floor(Math.random() * ['success', 'info', 'warning', 'danger', 'secondary '].length)] %>">
+                                                            <%= guest_g.category %>
+                                                        </span>
                                                     </div>
                                                 </div>
                                                 <% }); %>
@@ -87,18 +96,18 @@
 
 
 
-<script>
-    function printDiv(divId) {
-     var printContents = document.getElementById(divId).innerHTML;
-     var originalContents = document.body.innerHTML;
+        <script>
+            function printDiv(divId) {
+                var printContents = document.getElementById(divId).innerHTML;
+                var originalContents = document.body.innerHTML;
 
-     document.body.innerHTML = printContents;
+                document.body.innerHTML = printContents;
 
-     window.print();
+                window.print();
 
-     document.body.innerHTML = originalContents;
-}
-</script>
+                document.body.innerHTML = originalContents;
+            }
+        </script>
 
 
 

@@ -18,8 +18,8 @@
                         <div class="card shadow-lg p-4">
                             <div class="card-body">
 
-                                <div class="text-end">
 
+                                <!-- <div class="text-end ">
                                     <div class="dropdown">
                                         <button class="btn btn-primary dropdown-toggle" type="button"
                                             id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -34,15 +34,39 @@
                                                     Excel)</a></li>
                                         </ul>
                                     </div>
+                                    <a href="/adimini/guests-tables" class="btn btn-secondary">Table Arrangement</a>
+                                </div> -->
 
-                                    <a href="/adimini/guests-tables">Table Arrangement</a>
+                                <div class="d-flex justify-content-end">
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary dropdown-toggle" type="button"
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="fa-solid fa-user-plus"></i> Add Invitee
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a class="dropdown-item" href="javascript:void(0)"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#oneInviteeModal">Individual</a></li>
+                                            <li><a class="dropdown-item" href="javascript:void(0)"
+                                                    data-bs-toggle="modal" data-bs-target="#excelInviteeModal">Group
+                                                    (Upload Excel)</a></li>
+                                        </ul>
+                                    </div>
+                                    &nbsp;&nbsp;
+                                    <a href="/adimini/guests-tables" class="btn btn-secondary"><i
+                                            class="fa-solid fa-table"></i> Table Arrangement</a>
+                                    &nbsp;&nbsp;
+                                    <a href="javascript:void(0)" class="btn btn-info" data-bs-toggle="modal"
+                                        data-bs-target="#sendMessageModal"><i class="fa-solid fa-comment"></i>
+                                        Send SMS
+                                    </a>
+
                                 </div>
 
 
 
 
 
-                              
 
 
                                 <table id="example" class="table table-striped" style="width:100%">
@@ -54,7 +78,7 @@
                                             <th>Phone</th>
                                             <th>Country</th>
                                             <th>Category</th>
-                                            <th></th>
+                                            <!-- <th>SMS Counts</th> -->
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -65,27 +89,42 @@
                                             <th>Phone</th>
                                             <th>Country</th>
                                             <th>Category</th>
-                                            <th></th>
+                                            <!-- <th>SMS Counts</th> -->
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                      
+
 
 
                                         <% guests.forEach((guest, index)=> { %>
                                             <tr>
-                                                <td><%= index + 1 %></td>
-                                                <td><%= guest.names %></td>
-                                                <td><%= guest.email %></td>
-                                                <td><%= guest.phone %></td>
-                                                <td><%= guest.country %></td>
-                                                <td><%= guest.category %></td>
-                                                <td></td>
+                                                <td>
+                                                    <%= index + 1 %>
+                                                </td>
+                                                <td>
+                                                    <%= guest.names %>
+                                                </td>
+                                                <td>
+                                                    <%= guest.email %>
+                                                </td>
+                                                <td>
+                                                    <%= guest.phone %>
+                                                </td>
+                                                <td>
+                                                    <%= guest.country %>
+                                                </td>
+                                                <td><span
+                                                        class="badge bg-<%= ['success', 'info', 'warning', 'danger', 'secondary '][Math.floor(Math.random() * ['success', 'info', 'warning', 'danger', 'secondary '].length)] %>">
+                                                        <%= guest.category %>
+                                                    </span></td>
+                                                <!-- <td>
+                                                    <span class="badge bg-info">2 <i class="fa-solid fa-eye"></i></span>
+                                                </td> -->
                                             </tr>
                                             <% }); %>
 
-                                        
-                                    </tfoot>
+
+                                                </tfoot>
                                 </table>
 
 
@@ -129,8 +168,8 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Name</label>
-                                <input type="text" class="form-control form-control-lg" id="exampleFormControlInput1" placeholder="Name"
-                                    name="name" required>
+                                <input type="text" class="form-control form-control-lg" id="exampleFormControlInput1"
+                                    placeholder="Name" name="name" required>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Email</label>
@@ -453,7 +492,8 @@
                             </p>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">List of invitees</label>
-                                <input type="file" class="form-control form-control-lg" id="exampleFormControlInput1" name="file" required>
+                                <input type="file" class="form-control form-control-lg" id="exampleFormControlInput1"
+                                    name="file" required>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Category</label>
@@ -480,9 +520,50 @@
 
 
 
+        <div class="modal fade" id="sendMessageModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Send SMS to whole category</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="form-send-sms" method="post" enctype="multipart/form-data">
+                        <div class="modal-body">
+
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">SMS</label>
+                                <textarea name="sms" class="form-control form-control-lg"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Category</label>
+                                <select name="category_id" class="form-control form-control-lg" required>
+                                    <option value="">Select Their Category</option>
+                                    <% categories.forEach((category, index)=> { %>
+                                        <option value="<%= category.id %>">
+                                            <%= category.category %>
+                                        </option>
+                                        <% }); %>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+
+
 
         <script>
             $(document).ready(function () {
+
+
                 $('#example').DataTable({
                     dom: 'Bfrtip',
                     buttons: [
@@ -492,7 +573,44 @@
                         'pdfHtml5'
                     ]
                 });
+
+
+                $('#form-send-sms').on('submit', function (e) {
+
+                    e.preventDefault();
+
+                    let sms = $('textarea[name="sms"]').val();
+
+                    sms = replaceName(sms, 'John');
+                    sms = replaceEmail(sms, 'john@example.com');
+                    sms = replaceTableNumber(sms, '3');
+
+                    Swal.fire({
+                        title: 'Preview',
+                        text: sms,
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: '<i class="fa-solid fa-paper-plane"></i> Yes, Send it!'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.href = '/adimini/delete-category?id=' + id;
+                        }
+                    })
+
+                });
+
             });
+
+            function replaceName(template, newName) {
+                return template.replace(/\[Name\]/g, newName);
+            }
+            function replaceEmail(template, newEmail) {
+                return template.replace(/\[Email\]/g, newEmail);
+            }
+            function replaceTableNumber(template, newTableNumber) {
+                return template.replace(/\[TableNumber\]/g, newTableNumber);
+            }
         </script>
 
 

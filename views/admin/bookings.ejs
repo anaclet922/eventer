@@ -25,6 +25,29 @@
 
 
 
+
+                                <div class="d-flex justify-content-end">
+
+                                    <a href="javascript:void(0)" class="btn btn-primary mark-as-booked-btn"
+                                        onclick="" style="display: none;"  data-bs-toggle="modal" data-bs-target="#sendToGuestsModal">
+                                        <i class="fa-solid fa-share-from-square"></i>
+                                        Transfer to guests
+                                    </a>
+                                    &nbsp;&nbsp;
+                                    <a href="javascript:void(0)" class="btn btn-primary mark-as-booked-btn"
+                                        onclick="getSelectedIds()" style="display: none;">
+                                        <i class="fa-solid fa-square-check"></i>
+                                        Mark as booked
+                                    </a>
+
+                                </div>
+
+
+
+
+
+
+
                                 <table id="example" class="table table-striped" style="width:100%">
                                     <thead>
                                         <tr>
@@ -35,6 +58,7 @@
                                             <th>Country</th>
                                             <th>Hotel</th>
                                             <th>Dates</th>
+                                            <th>Status</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -46,26 +70,48 @@
                                             <th>Country</th>
                                             <th>Hotel</th>
                                             <th>Dates</th>
+                                            <th>Status</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                      
+
 
 
                                         <% bookings.forEach((booking, index)=> { %>
                                             <tr>
-                                                <td><%= index + 1 %></td>
-                                                <td><%= booking.names %></td>
-                                                <td><%= booking.email %></td>
-                                                <td><%= booking.phone %></td>
-                                                <td><%= booking.country %></td>
-                                                <td><%= booking.name %></td>
-                                                <td><%= locals.getFormatedDate(booking.checkin) + ' to ' + locals.getFormatedDate(booking.checkout) %></td>
+                                                <td>
+                                                    <%= booking.booking_id %>
+                                                </td>
+                                                <td>
+                                                    <%= booking.names %>
+                                                </td>
+                                                <td>
+                                                    <%= booking.email %>
+                                                </td>
+                                                <td>
+                                                    <%= booking.phone %>
+                                                </td>
+                                                <td>
+                                                    <%= booking.country %>
+                                                </td>
+                                                <td>
+                                                    <%= booking.name %>
+                                                </td>
+                                                <td>
+                                                    <%= locals.getFormatedDate(booking.checkin) + ' to ' +
+                                                        locals.getFormatedDate(booking.checkout) %>
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        class="badge bg-<%= booking.booked == 'YES' ? 'success' : 'danger' %>">
+                                                        <%= booking.booked=='YES' ? 'Booked' : 'Pending' %>
+                                                    </span>
+                                                </td>
                                             </tr>
                                             <% }); %>
 
-                                        
-                                    </tfoot>
+
+                                                </tfoot>
                                 </table>
 
 
@@ -96,20 +142,116 @@
 
 
 
+      
+
+        <div class="modal fade" id="sendToGuestsModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Selected To Guests List</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="form-send-sms" method="post" enctype="multipart/form-data">
+                        <div class="modal-body">
+
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput1" class="form-label">Category</label>
+                                <select name="category_id" class="form-control form-control-lg" required>
+                                    <option value="">Select Their Category</option>
+                                    <% categories.forEach((category, index)=> { %>
+                                        <option value="<%= category.id %>">
+                                            <%= category.category %>
+                                        </option>
+                                        <% }); %>
+                                </select>
+                            </div>
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
 
 
         <script>
             $(document).ready(function () {
                 $('#example').DataTable({
                     dom: 'Bfrtip',
+                    dom: 'Bfrtip',
+                    select: true,
                     buttons: [
                         'copyHtml5',
                         'excelHtml5',
                         'csvHtml5',
                         'pdfHtml5'
-                    ]
+                    ],
+                    columnDefs: [
+                        {
+                            orderable: false,
+                            className: 'select-checkbox',
+                            targets: 0
+                        }
+                    ],
+                    select: {
+                        style: 'os',
+                        selector: 'td:first-child'
+                    },
+                    order: [[1, 'asc']]
                 });
+
+                // Add checkboxes to each row
+                $('#example tbody').on('click', 'tr', function () {
+                    $(this).toggleClass('selected');
+                    if ($('#example tbody tr.selected').length) {
+                        $('.mark-as-booked-btn').show();
+                    } else {
+                        $('.mark-as-booked-btn').hide();
+                    }
+                });
+
+                // Add a checkbox column
+                $('#example thead tr').append('<th>Select</th>');
+                $('#example tfoot tr').append('<th>Select</th>');
+                $('#example tbody tr').append('<td><input type="checkbox" /></td>');
+
             });
+
+
+            function getSelectedIds() {
+                var selectedIds = [];
+
+                $('#example tbody tr.selected').each(function () {
+                    // Assuming your custom ID is stored in a data attribute like data-custom-id
+                    var customId = $(this).find('td:eq(0)').text().trim(); // Change the index accordingly
+
+                    selectedIds.push(customId);
+                });
+
+                $('.loading').show();
+
+                $.ajax({
+                    url: "/adimini/post-mark-booked",
+                    method: 'post',
+                    contentType: 'application/json',
+                    data: JSON.stringify({ values: selectedIds }),
+                    success: function (result) {
+                        console.log(result);
+                        $('.loading').hide();
+
+                    },
+                    error: function (error) {
+                        console.log('Error');
+                        $('.loading').hide();
+                    }
+                });
+
+            }
         </script>
 
 
