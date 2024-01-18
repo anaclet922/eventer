@@ -37,6 +37,8 @@ routerHome.post('/post-new-booking', async(req, res) => {
 
     const [i] = await (await conn).query("INSERT INTO tbl_bookings (names, email, phone, country, hotel_id, checkin, checkout) VALUES (?,?,?,?,?,?,?)", [names, email, phone, country, hotel, checkin, checkout]);
 
+    const [i2] = await (await conn).query("INSERT INTO tbl_guests (names, email, phone, country, category_id) VALUES (?,?,?,?,?)", [names, email, phone, country, 0]);
+
     res.redirect('/en/booking-done');
 
 });

@@ -1,73 +1,63 @@
 <%- include('./includes/header') %>
 
 
-    <%- include('./includes/nav') %>
 
 
+    <div class="top-row">
+        <div class="row top-row-background-only">
+            <div class="col-md-7">
+                <%- include('./includes/nav') %>
+                    <div class="container">
+                        <!-- <h1 class="booking-title">Booking Section</h1> -->
+                    </div>
+            </div>
+            <div class="col-md-5" style="padding: 1.5rem;background: rgba(255, 255, 255, 0.5);">
+
+                <!-- <h2 class="text-center text-white">Let's know where you will stay</h2> -->
+
+                <section class="success-section">
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-12">
+                                <h2 class="text-center text-white pb-3">Booking Section</h2>
+                                <div class="card shadow-lg p-4" style="margin-top: 9rem;">
+                                    <div class="card-body">
+
+                                        <div class="check-container text-center" style="margin-top: -70px;">
+                                            <img src="/images/check.png" alt="" width="60">
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <h2 class="text-center">Awesome!</h2>
+
+                                        <p class="text-center">
+                                            Your Booking has been received.
+                                            <br>
+                                            Check your email for details.
+                                        </p>
+
+                                        <br>
+                                        <center>
+                                            <a class="btn btn-primary btn-lg col-12" href="/en/about-event">Know The
+                                                Schedule</a>
+                                        </center>
 
 
-
-
-
-        <section class="success-section">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-6">
-                        <!-- <h2 class="text-center text-white pb-3">Booking Section</h2> -->
-                        <div class="card shadow-lg p-4">
-                            <div class="card-body">
-
-                                <div class="check-container text-center" style="margin-top: -70px;">
-                                    <img src="/images/check.png" alt="" width="60">
+                                    </div>
                                 </div>
-                                <br>
-                                <br>
-                                <h2 class="text-center">Awesome!</h2>
-
-                                <p class="text-center">
-                                    Your Booking has been received.
-                                    <br>
-                                    Check your email for details.
-                                </p>
-
-                                <br>
-                                <center>
-                                    <a class="btn btn-primary btn-lg col-2" href="/en/about-event">Ok</a>
-                                </center>
-
-
                             </div>
                         </div>
                     </div>
-                </div>
+                </section>
+
+
+
             </div>
-        </section>
+        </div>
+    </div>
 
 
 
 
 
-
-
-
-
-        <section class="footer-section pt-5">
-            <footer>
-                <div class="container">
-
-                    <div class="row">
-                        <div class="col-lg-12 text-center text-muted" style="font-size: 13px;">
-
-                            <%= locals.configs['footer_copyright_text'] %>
-
-                        </div>
-                    </div>
-
-                </div>
-            </footer>
-        </section>
-
-
-
-
-        <%- include('./includes/footer') %>
+    <%- include('./includes/footer') %>

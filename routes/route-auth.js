@@ -32,7 +32,8 @@ if (user.length > 0) {
             console.log('Logged in!');
             req.session.loggedin = true;
             req.session.loggedInUser = user[0];
-            return res.redirect('/adimini/home');
+            // return res.redirect('/adimini/home');
+            return res.redirect('/adimini/bookings');
 
         } else {    
             req.flash('error', 'Incorrect credentials provided!');

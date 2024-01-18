@@ -154,6 +154,7 @@ routerAdmin.post('/post-edit-category', async (req, res) => {
 routerAdmin.post('/post-new-invitee', async (req, res) => {
     try {
         let name = req.body.name;
+        let position = req.body.position;
         let email = req.body.email;
         let phone = req.body.phone;
         let country = req.body.country;
@@ -172,7 +173,7 @@ routerAdmin.post('/post-new-invitee', async (req, res) => {
             return res.redirect('/adimini/invite');
         }
 
-        const [i] = await (await conn).query("INSERT INTO tbl_guests (names, email, phone, country, category_id) VALUES (?,?,?,?,?)", [name, email, phone, country, category_id]);
+        const [i] = await (await conn).query("INSERT INTO tbl_guests (names, position, email, phone, country, category_id) VALUES (?,?,?,?,?)", [name, position, email, phone, country, category_id]);
 
         req.flash('success', 'Invitee Successfully Saved!');
         res.redirect('/adimini/invite');
@@ -213,9 +214,10 @@ routerAdmin.post('/post-new-invitee-excel', excelUpload, async (req, res) => {
 
                     // Access cell values by column name or index
                     const name = row.getCell(1).value;
-                    let email = row.getCell(2).value;
-                    const phone = row.getCell(3).value;
-                    const country = row.getCell(4).value;
+                    const position = row.getCell(2).value;
+                    let email = row.getCell(3).value;
+                    const phone = row.getCell(4).value;
+                    const country = row.getCell(5).value;
 
                     if (!name || !email || !phone) {
                         failedData.push({ name, email, phone, country });
@@ -241,7 +243,7 @@ routerAdmin.post('/post-new-invitee-excel', excelUpload, async (req, res) => {
                     //     return;
                     // }
 
-                    const [i] = await (await conn).query("INSERT INTO tbl_guests (names, email, phone, country, category_id) VALUES (?,?,?,?,?)", [name, email, phone, country, category_id]);
+                    const [i] = await (await conn).query("INSERT INTO tbl_guests (names, position, email, phone, country, category_id) VALUES (?,?,?,?,?)", [name, position, email, phone, country, category_id]);
                 });
 
                 return failedData;

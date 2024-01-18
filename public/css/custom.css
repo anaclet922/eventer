@@ -35,20 +35,51 @@
   }
 
   .form-label {
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-}
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+  }
 
-.top-row{
-     background-image: url('../images/striped-blue-background.jpg');
-     height: 50vh;
-     width: 100%;
-     background-repeat: repeat;
-     background-size: cover;
-}
+  .top-row {
+      background-image: url('../images/striped-blue-background.jpg');
+      /* height: 50vh; */
+      width: 100%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-size: 100% 50vh;
+  }
 
-.booking-title{
-    color: white;
-    padding: 1.5rem;
-    font-size: 4rem;
-}
+  .booking-title {
+      color: white;
+      padding: 2rem;
+      font-size: 2.5rem;
+  }
+
+  a {
+      text-decoration: none;
+  }
+
+  .contact-links {
+      text-decoration: none !important;
+      color: #00B0E2;
+  }
+
+  .top-row-background-only {
+      background-image: url('../images/dark-grey.jpg');
+      /* height: 50vh; */
+      width: 100%;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-size: 100% 150px;
+      border-bottom: 1px solid white;
+      margin: 0;
+  }
+
+
+  @media (max-width: 600px) {
+      .navbar-brand img {
+          height: 60px;
+      }
+      .navbar  .container-fluid{
+        padding-left: 0 !important
+      }
+  }
